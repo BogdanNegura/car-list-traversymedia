@@ -1,7 +1,7 @@
 // Define UI vars
 const form = document.querySelector('#car-form');
 const carList = document.querySelector('.collection');
-const clearButton = document.querySelector('clear-cars');
+const clearButton = document.querySelector('.clear-cars');
 const filter = document.querySelector('#filter');
 const carInput = document.querySelector('#car');
 
@@ -13,6 +13,10 @@ function loadEventListners() {
     form.addEventListener('submit', addCar);
     // Remove task event
     carList.addEventListener('click', removeCar);
+    // Clear car event
+    clearButton.addEventListener('click', clearCars);
+    // Filter cars events
+    filter.addEventListener('keyup', filterCars)
 }
 
 // Add Car
@@ -54,4 +58,34 @@ function removeCar(e) {
             e.target.parentElement.parentElement.remove();
         }
     }
+}
+
+// clear Cars
+
+function clearCars() {
+    // carList.innerHTML = '';   This is first way
+
+    // Faster
+
+    while(carList.firstChild) {
+        carList.removeChild(carList.firstChild);
+    }
+
+    // https://jsperf.com/innerhtml-vs-removechild/47
+}
+
+// Filter Cars
+function filterCars(e) {
+    const text = e.target.value.toLowerCase();
+
+    document.querySelectorAll('.collection-item').forEach(
+        function(car) {
+            const item = car.firstChild.textContent;
+            if(item.toLowerCase().indexOf(text) != -1){
+                car.style.display = 'block';
+            } else {
+                car.style.display = 'none';
+            }
+        }
+    );
 }
