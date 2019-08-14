@@ -11,6 +11,8 @@ loadEventListners();
 function loadEventListners() {
     // Add car event
     form.addEventListener('submit', addCar);
+    // Remove task event
+    carList.addEventListener('click', removeCar);
 }
 
 // Add Car
@@ -42,4 +44,14 @@ function addCar(e) {
     console.log(li);
 
     e.preventDefault();
+}
+
+// Remove Task
+function removeCar(e) {
+    if(e.target.parentElement.classList.contains 
+    ('delete-item')) {
+        if(confirm('Are You Sure?')) {
+            e.target.parentElement.parentElement.remove();
+        }
+    }
 }
